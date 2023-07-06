@@ -39,6 +39,12 @@ cube.position.set(2, 0, 0);
 // 放大cube
 cube.scale.set(2, 2, 2); // scale也是一个相对大小，如果放大父元素为两倍，子元素也会放大为之前的两倍
 
+
+
+
+
+
+
 // 将物体添加到场景中
 scene.add(parentCube);
 
@@ -49,7 +55,6 @@ camera.position.x = 5;
 camera.lookAt(0, 0, 0); // 看向原点（默认）
 
 // 添加世界坐标辅助器
-
 const axesHelper = new THREE.AxesHelper(5); // 数字代表辅助线的长度
 scene.add(axesHelper);
 
