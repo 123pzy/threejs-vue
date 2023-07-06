@@ -41,7 +41,6 @@ cube.scale.set(2, 2, 2); // scale也是一个相对大小，如果放大父元�
 
 // 将物体添加到场景中
 scene.add(parentCube);
-scene.add(cube);
 
 // 设置相机的位置
 camera.position.z = 5;
