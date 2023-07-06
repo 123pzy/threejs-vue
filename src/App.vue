@@ -2,8 +2,8 @@
 
 <script setup>
 // 导入three
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 // 创建场景
 const scene = new THREE.Scene();
@@ -71,6 +71,11 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
-</script>
 
-<style scoped></style>
+// 监听窗口的变化进行渲染
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+</script>
