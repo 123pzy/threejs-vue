@@ -8,6 +8,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // 创建场景
 const scene = new THREE.Scene();
 
+
 // 创建相机
 const camera = new THREE.PerspectiveCamera(
   45, // 视角(眼睛看到的角度范围)
