@@ -49,6 +49,7 @@ camera.position.x = 5;
 camera.lookAt(0, 0, 0); // 看向原点（默认）
 
 // 添加世界坐标辅助器
+
 const axesHelper = new THREE.AxesHelper(5); // 数字代表辅助线的长度
 scene.add(axesHelper);
 
