@@ -46,12 +46,12 @@ scene.add(parentCube);
 
 // 设置相机的位置
 camera.position.z = 5;
-camera.position.y = 2;
+camera.position.y = 10;
 camera.position.x = 5;
 camera.lookAt(0, 0, 0); // 看向原点（默认）
 
 // 添加世界坐标辅助器
-const axesHelper = new THREE.AxesHelper(5); // 数字代表辅助线的长度
+const axesHelper = new THREE.AxesHelper(20); // 数字代表辅助线的长度
 scene.add(axesHelper);
 
 // 添加轨道控制器，不需要添加到场景中，只要绑定到相机上即可
@@ -101,6 +101,13 @@ const gui = new GUI();
 // 添加按钮
 gui.add(eventObj, "Fullscreen").name("全屏");
 gui.add(eventObj, "exitFullscreen");
+
+// 控制立方体的位置
+// gui.add(cube.position, "x", -10, 10).name("立方体的x轴位置"); // 第一种写法
+const folder = gui.addFolder('设置立方体位置')
+folder.add(cube.position, "x").min(-10).max(10).step(1).name("立方体的x轴位置"); // 推荐这种写法
+folder.add(cube.position, "y").min(-10).max(10).step(1).name("立方体的y轴位置");
+folder.add(cube.position, "z").min(-10).max(10).step(1).name("立方体的z轴位置");
 </script>
 <style scoped>
 .fullScreen-btn {
