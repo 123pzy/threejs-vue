@@ -1,13 +1,15 @@
-<template></template>
+<template>
+  <button class="fullScreen-btn" @click="fullScreen">点击全屏</button>
+</template>
 
 <script setup>
 // 导入three
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 
 // 创建场景
 const scene = new THREE.Scene();
-
 
 // 创建相机
 const camera = new THREE.PerspectiveCamera(
@@ -35,7 +37,6 @@ const cube = new THREE.Mesh(geometry, material);
 parentCube.add(cube);
 parentCube.position.set(-3, 0, 0); // position是一个相对坐标，子元素相对于父元素的坐标
 
-// cube.position.x = 2;
 cube.position.set(2, 0, 0);
 // 放大cube
 cube.scale.set(2, 2, 2); // scale也是一个相对大小，如果放大父元素为两倍，子元素也会放大为之前的两倍
@@ -74,9 +75,38 @@ function animate() {
 animate();
 
 // 监听窗口的变化进行渲染
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 });
+
+// 原生方式定义全屏按钮
+function fullScreen() {
+  renderer.domElement.requestFullscreen(); // 点击全屏显示
+}
+
+// 创建事件
+const eventObj = {
+  Fullscreen() {
+    document.body.requestFullscreen();
+  },
+  exitFullscreen() {
+    document.exitFullscreen(); // 退出全屏是针对整个文档：document
+  },
+};
+
+// 创建GUI对象
+const gui = new GUI();
+// 添加按钮
+gui.add(eventObj, "Fullscreen").name("全屏");
+gui.add(eventObj, "exitFullscreen");
 </script>
+<style scoped>
+.fullScreen-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 999;
+}
+</style>
