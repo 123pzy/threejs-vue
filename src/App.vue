@@ -2,8 +2,8 @@
 
 <script setup>
 // 导入three
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 // 创建场景
 const scene = new THREE.Scene();
@@ -40,12 +40,6 @@ cube.position.set(2, 0, 0);
 // 放大cube
 cube.scale.set(2, 2, 2); // scale也是一个相对大小，如果放大父元素为两倍，子元素也会放大为之前的两倍
 
-
-
-
-
-
-
 // 将物体添加到场景中
 scene.add(parentCube);
 
@@ -78,6 +72,11 @@ function animate() {
   renderer.render(scene, camera);
 }
 animate();
-</script>
 
-<style scoped></style>
+// 监听窗口的变化进行渲染
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+</script>
