@@ -29,6 +29,7 @@ const geometry = new THREE.BoxGeometry(1, 1, 1);
 
 // 创建材质
 const parentMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000f });
+parentMaterial.wireframe = true; // 设置父元素为线框模式
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
 // 创建网格
@@ -82,9 +83,9 @@ window.addEventListener("resize", () => {
 });
 
 // 原生方式定义全屏按钮
-function fullScreen() {
-  renderer.domElement.requestFullscreen(); // 点击全屏显示
-}
+// function fullScreen() {
+//   renderer.domElement.requestFullscreen(); // 点击全屏显示
+// }
 
 // 创建事件
 const eventObj = {
@@ -104,10 +105,35 @@ gui.add(eventObj, "exitFullscreen");
 
 // 控制立方体的位置
 // gui.add(cube.position, "x", -10, 10).name("立方体的x轴位置"); // 第一种写法
-const folder = gui.addFolder('设置立方体位置')
-folder.add(cube.position, "x").min(-10).max(10).step(1).name("立方体的x轴位置"); // 推荐这种写法
+const folder = gui.addFolder("设置立方体位置");
+folder
+  .add(cube.position, "x")
+  .min(-10)
+  .max(10)
+  .step(1)
+  .name("立方体的x轴位置")
+  .onChange((value) => {
+    console.log("立方体的x轴位置：", value);
+  })
+  .onFinishChange((value) => {
+    console.log("最终位置为：", value);
+  }); // 推荐这种写法
 folder.add(cube.position, "y").min(-10).max(10).step(1).name("立方体的y轴位置");
 folder.add(cube.position, "z").min(-10).max(10).step(1).name("立方体的z轴位置");
+
+// 父元素材质
+gui.add(parentMaterial, "wireframe").name("父元素材质是否为线框模式");
+
+// 设置子元素的颜色
+const colorParams = {
+  cubeColor: "0x00ff00",
+};
+gui
+  .addColor(colorParams, "cubeColor")
+  .name("大立方体的颜色")
+  .onChange((val) => {
+    cube.material.color.set(val);
+  });
 </script>
 <style scoped>
 .fullScreen-btn {
