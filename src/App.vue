@@ -1,9 +1,9 @@
 <template>
-  <GUIBase></GUIBase>
+  <BufferGeometry></BufferGeometry>
 </template>
 
 <script setup>
-import GUIBase from "./components/GUIBase.vue";
+import BufferGeometry from "./components/BufferGeometry.vue";
 </script>
 
 <style scoped></style>
