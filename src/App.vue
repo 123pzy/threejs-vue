@@ -1,9 +1,9 @@
 <template>
-  <BufferGeometry></BufferGeometry>
+  <DiffMaterial></DiffMaterial>
 </template>
 
 <script setup>
-import BufferGeometry from "./components/BufferGeometry.vue";
+import DiffMaterial from "./components/DiffMaterial.vue";
 </script>
 
 <style scoped></style>

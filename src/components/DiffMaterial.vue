@@ -1,55 +1,59 @@
 <template></template>
 
 <script setup>
-// 导入threejs
 import * as THREE from "three";
-// 导入轨道控制器
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-// 导入lil.gui
 import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 
 // 创建场景
 const scene = new THREE.Scene();
-
 // 创建相机
 const camera = new THREE.PerspectiveCamera(
-  45, // 视角
+  45, // 视角(眼睛看到的角度范围)
   window.innerWidth / window.innerHeight, // 宽高比
-  0.1, // 近平面
-  1000 // 远平面
+  0.1, // 最近可以看到
+  1000 // 最远可以看到
 );
-
 // 创建渲染器
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// // 创建几何体
+// 创建一个不同面不同颜色的立方体
 const cubegeometry = new THREE.BoxGeometry(1, 1, 1);
-console.log(cubegeometry);
-// // 创建材质
-// const material = new THREE.MeshBasicMaterial({
-//   color: 0x00ff00,
-//   wireframe: true,
-// });
-// const cube = new THREE.Mesh(geometry, material);
-// console.log(geometry);
+// 创建材质
+const cubeMaterial0 = new THREE.MeshBasicMaterial({
+  color: 0xff0000f,
+});
+const cubeMaterial1 = new THREE.MeshBasicMaterial({
+  color: 0xff0000,
+});
+const cubeMaterial2 = new THREE.MeshBasicMaterial({
+  color: 0x0000ff,
+});
+const cubeMaterial3 = new THREE.MeshBasicMaterial({
+  color: 0xffff00,
+});
+const cubeMaterial4 = new THREE.MeshBasicMaterial({
+  color: 0x00ffff,
+});
+const cubeMaterial5 = new THREE.MeshBasicMaterial({
+  color: 0xff00ff,
+});
+// 创建网格
+const cube = new THREE.Mesh(cubegeometry, [
+  cubeMaterial0,
+  cubeMaterial1,
+  cubeMaterial2,
+  cubeMaterial3,
+  cubeMaterial4,
+  cubeMaterial5,
+]);
+scene.add(cube);
 
-// // 将网格添加到场景中
-// scene.add(cube);
-
-// 创建几何体
+// 创建一个不同颜色的面
 const geometry = new THREE.BufferGeometry();
-// 创建顶点数据,顶点是有序的,每三个为一个顶点，逆时针为正面
-// const vertices = new Float32Array([
-//   -1.0, -1.0, 0.0, 1.0, -1.0, 0.0, 1.0, 1.0, 0.0,
-
-//   1.0, 1.0, 0, -1.0, 1.0, 0, -1.0, -1.0, 0,
-// ]);
-// // 创建顶点属性
-// geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
-
-// 使用索引绘制
+// 创建顶点属性
 const vertices = new Float32Array([
   -1.0, -1.0, 0.0, 1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, 1.0, 0,
 ]);
@@ -59,17 +63,20 @@ geometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
 const indices = new Uint16Array([0, 1, 2, 2, 3, 0]);
 // 创建索引属性
 geometry.setIndex(new THREE.BufferAttribute(indices, 1));
+// 设置两个顶点组，形成两个材质
+geometry.addGroup(0, 3, 0);
+geometry.addGroup(3, 3, 1);
 
-console.log(geometry);
 // 创建材质
-const material = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-  // side: THREE.DoubleSide,
-  wireframe: true, // 是否只显示框架线
+const material0 = new THREE.MeshBasicMaterial({
+  color: 0xffff00,
 });
-const plane = new THREE.Mesh(geometry, material);
+const material1 = new THREE.MeshBasicMaterial({
+  color: 0xff00ff,
+});
+const plane = new THREE.Mesh(geometry, [material0, material1]);
+plane.position.set(1, -1, -3);
 scene.add(plane);
-
 // 设置相机位置
 camera.position.z = 5;
 camera.position.y = 2;
