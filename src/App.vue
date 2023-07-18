@@ -1,9 +1,9 @@
 <template>
-  <DiffMaterial></DiffMaterial>
+  <SomeGeometry></SomeGeometry>
 </template>
 
 <script setup>
-import DiffMaterial from "./components/DiffMaterial.vue";
+import SomeGeometry from "./components/SomeGeometry.vue";
 </script>
 
 <style scoped></style>
