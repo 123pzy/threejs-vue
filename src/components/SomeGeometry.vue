@@ -1,9 +1,9 @@
 <template></template>
 
 <script setup>
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
 // 场景
 const scene = new THREE.Scene();
@@ -19,13 +19,14 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 // 创建几何体
-const geometry = new THREE.CircleGeometry(2, 32);
+const geometry = new THREE.CircleGeometry(2, 32); // (半径，几条边)
 // 创建材质
 const material = new THREE.MeshBasicMaterial({ color: 0xffff00 });
 // 创建网格
 const circle = new THREE.Mesh(geometry, material);
 // 把网格添加到场景中
 scene.add(circle);
+
 // 设置相机位置
 camera.position.x = 5;
 camera.position.y = 10;
@@ -53,11 +54,13 @@ animate();
 const gui = new GUI();
 // 添加按钮
 // 添加滑块控件到GUI对象
-gui.add({ radius: 1 }, "radius", 0, 10).onChange(function (value) {
+gui.add({ radius: 1 }, 'radius', 0, 10).onChange(function (newval) {
   // 更新圆形的半径
-  circle.parameters.radius = value;
-  circle.needsUpdate = true;
-  animate();
+  scene.remove(circle); // 移除旧的圆
+  circle.geometry.dispose(); // 清理旧几何体的资源,减少内存占用
+  const newGeometry = new THREE.CircleGeometry(newval, 32); // 创建新的几何体
+  circle.geometry = newGeometry; // 应用新的几何体到网格
+  scene.add(circle); // 添加新的圆到场景
 });
 </script>
 
