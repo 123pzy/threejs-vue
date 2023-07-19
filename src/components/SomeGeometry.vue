@@ -66,7 +66,6 @@ gui.add({ radius: 1 }, "radius", 0, 10).onChange(function (newval) {
   circle.geometry = newGeometry; // 应用新的几何体到网格
   scene.add(circle); // 添加新的圆到场景
 });
-
 </script>
 
 <style scoped></style>
