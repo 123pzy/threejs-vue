@@ -1,9 +1,9 @@
 <template>
-  <SomeGeometry></SomeGeometry>
+  <ChartletAndEnvi></ChartletAndEnvi>
 </template>
 
 <script setup>
-import SomeGeometry from "./components/SomeGeometry.vue";
+import ChartletAndEnvi from "./components/ChartletAndEnvi.vue";
 </script>
 
 <style scoped></style>
